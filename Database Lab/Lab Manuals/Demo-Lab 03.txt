@@ -1,0 +1,36 @@
+CREATE TABLE Hr.Students
+ (
+stud_id NUMBER(3),
+stud_name VARCHAR2(30) NOT NULL,
+stud_address varchar2(30)
+);
+
+----ADD -- DROP CONSTRAINT-----
+ALTER Table hr.students DROP CONSTRAINT stud_pk;
+ALTER Table HR.STUDENTS ADD CONSTRAINT stud_pk Primary Key(stud_id);
+
+drop table hr.courses;
+drop table hr.students;
+
+CREATE TABLE hr.courses
+(
+course_id NUMBER(3) PRIMARY KEY,
+course_name VARCHAR2(9) NOT NULL,
+stud_id NUMBER(3) CONSTRAINT  stud_fk REFERENCES hr.students(stud_id)
+);
+
+----ADD FK CONSTRAINT-----
+ALTER TABLE hr.courses ADD FOREIGN key(stud_ID) REFERENCES hr.students(stud_ID);
+ALTER TABLE hr.courses DROP CONSTRAINT stud_fk;
+
+select * from hr.students;
+select * from hr.courses;
+
+insert into hr.students values(3,'Areez','Nazmabad');
+
+insert into hr.courses values(4,'DS Lab',4);
+
+
+
+
+

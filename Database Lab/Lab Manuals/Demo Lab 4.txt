@@ -1,0 +1,93 @@
+select employee_id, first_name, last_name,salary from employees;
+
+select salary from employees where first_name = 'Nancy';
+
+select first_name,salary from EMPLOYEES where salary >
+(select salary from employees where first_name = 'Nancy');
+
+---DML---
+update EMPLOYEES set salary = salary + 1
+where department_id = (select department_id from employees where first_name = 'Nancy');
+
+select FIRST_NAME,salary from employees where DEPARTMENT_ID = 100;
+
+select salary from employees where first_name = 'John';
+
+select first_name, last_name, salary from EMPLOYEES
+where salary > ALL (select salary from employees where first_name = 'John');
+
+select first_name,salary from employees
+where salary =(select MIN(salary) from employees);
+
+select first_name,salary from employees
+where salary =(select MAX(salary) from employees);
+
+
+---2nd highst salary in table
+select MAX(salary) from EMPLOYEES 
+where salary < (select MAX(salary) from employees);
+
+select first_name,last_name,hire_date,JOB_id from employees where salary =
+(select MAX(salary) from EMPLOYEES 
+where salary < (select MAX(salary) from employees));
+
+select * from employees
+
+--Correlated Query--
+--Find the employees who earns hights in there spacific departments
+-- indvidual department not single department
+--Single Colunm---
+select first_name,salary,department_id 
+from employees Emp_Outer
+where 1 = (select count(distinct salary)
+from employees Emp_Inner
+where Emp_Outer.department_id = Emp_Inner.department_id
+AND
+Emp_Outer.salary <= Emp_Inner.salary)
+order by 3
+
+--- Multiple Colunm---
+
+select First_name, salary, department_id from employees
+where (department_id,manager_id)IN (
+select department_id, manager_id from employees where salary >= 10000
+);
+----Sub Query using from clause---
+select first_name, salary from
+(
+select first_name,salary,department_id 
+from employees Emp_Outer
+where 1 = (select count(distinct salary)
+from employees Emp_Inner
+where Emp_Outer.department_id = Emp_Inner.department_id
+AND
+Emp_Outer.salary <= Emp_Inner.salary)
+)
+where department_id = 60
+
+
+With Emp_Dept_Max as
+(
+select first_name,salary,department_id 
+from employees Emp_Outer
+where 1 = (select count(distinct salary)
+from employees Emp_Inner
+where Emp_Outer.department_id = Emp_Inner.department_id
+AND
+Emp_Outer.salary <= Emp_Inner.salary)
+)
+select * from Emp_Dept_Max where department_id = 60
+
+
+
+------Create Index---
+
+---It is used to speed up the retrival
+--should be created on the field having no keys
+--should be used to create when less row retive from larg table.
+Create Index Emp_FirstName_Idx
+ON Employees(First_Name);
+
+select last_name, department_id,employee_id from employees
+
+where first_name = 'Neena';

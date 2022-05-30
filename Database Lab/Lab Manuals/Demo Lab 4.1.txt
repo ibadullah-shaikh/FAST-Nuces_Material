@@ -1,0 +1,63 @@
+---Group by
+SELECT department_id, SUM(salary) AS "Total salaries"  
+FROM employees  
+GROUP BY department_id; 
+
+SELECT department_id, COUNT(*) AS "Number of employees"  
+FROM employees  
+WHERE salary > 1000  
+GROUP BY department_id
+--having count(*)>5;
+
+
+
+select * from employees;
+select * from locations;
+
+-- Display name, salary of employees whose salary greater than Neena salary 
+select First_name,salary from EMPLOYEES
+where salary > (select salary from employees where first_name = 'Neena');
+---- Display name, salary of employees whose salary greater than Neena salary and department number
+--same as Neena department number
+
+
+select first_name, salary from employees
+where salary > (select salary from employees where first_name = 'Neena' AND department_id = 90)
+AND department_id = (select department_id from employees where first_name = 'Neena');
+
+Create table EMPLOYEE_BKP as SELECT * from EMPLOYEES where 1=2;
+ALTER table EMPLOYEE_BKP add primary key(EMPLOYEE_ID);
+
+select * from EMPLOYEE_BKP
+
+drop table EMPLOYEE_BKP
+
+INSERT INTO EMPLOYEE_BKP  
+SELECT * FROM EMPLOYEES   
+WHERE employee_ID IN (SELECT employee_ID   
+FROM job_History WHERE start_Date='13-JAN-01');
+
+Delete from EMPLOYEE_BKP where employee_id 
+ IN(select employee_id from job_History WHERE start_Date='13-JAN-01');
+ 
+ -- 2nd highest salary using correlated subquery
+ 
+ Select salary from employees EmpOuter where 2 = 
+ (select count(distinct salary)
+ from employees EMPINER 
+ where EmpOuter.salary <= EMPINER.salary);
+ 
+ -- 2nd highest salary using without  correlated subquery
+ 
+select MAX(salary) from EMPLOYEES 
+where salary < (select MAX(salary) from employees);
+ 
+ --JAB MAIN SUBQUERY MA MAIN QUERY KA REFERENCE HO TO WO CORREALTED SUBQUERT HOTI HA
+
+--SELECT * FROM EMPLOYEES 
+--WHERE EXISTS(SELECT * FROM DEPARTMENTS WHERE  DEPARTMENTS.EMPLOYEE_ID=EMPLOYEE.EMPLOYEE_ID);
+
+SELECT EMPLOYEE_ID, SALARY FROM EMPLOYEES E1
+WHERE 1 = (SELECT COUNT(DISTINCT SALARY)FROM EMPLOYEES E2
+WHERE E2.SALARY > E1.SALARY);
+--N-1

@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="lab07_logical" id="39392B91-F154-9F17-ACC7-E3D6FE6ABACC" version="3.5">
+<createdBy>Ibadullah Shaikh</createdBy>
+<createdTime>2021-11-12 13:47:28 UTC</createdTime>
+<ownerDesignName>lab07_logical</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>39392B91-F154-9F17-ACC7-E3D6FE6ABACC</designId>
+</OSDM_Design>
