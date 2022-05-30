@@ -1,0 +1,77 @@
+INCLUDE Irvine32.inc
+.data
+array DWORD 9,4,5,8,6,7,2
+search DWORD 5
+len DWORD ?
+msg BYTE "Number to be searched: ",0
+one BYTE "Number found at Index: ",0
+two BYTE "Number not Found...!!",0
+three BYTE "Array: ",0
+.code
+main PROC
+mov edi, Offset array
+mov edx, OFFSET three
+call writeString
+call crlf
+mov ecx, LENGTHOF array
+mov len, ecx
+mov esi, 0
+L1:
+	mov eax, [edi]
+	call writeInt
+	call crlf
+	add edi, 4
+Loop L1
+call crlf
+mov eax, search
+mov edx, OFFSET msg
+call writestring
+call writeint
+call crlf
+mov ecx, LENGTHOF array
+
+PUSH [array+0]
+PUSH search
+call SearchFunc
+add esp, 4
+
+exit
+main ENDP
+
+SearchFunc PROC
+	PUSH ebp
+	mov ebp, esp
+	cmp ecx, esi
+	jz equal
+	mov eax, [ebp+12]
+	mov ebx, [ebp+8]
+	cmp eax, ebx
+	jz hello
+	INC esi
+	PUSH array[esi*4]
+	PUSH ebx
+	Call SearchFunc
+	Add esp, 8
+	POP ebp
+	RET
+hello:
+	call crlf
+	mov edx, OFFSET one
+	call writestring
+	mov eax, esi
+	call writeint
+	call crlf
+	call crlf
+	POP ebp
+	RET
+equal:
+	call crlf
+	mov edx, OFFSET two
+	call writestring
+	call crlf
+	call crlf
+	POP ebp
+	RET
+SearchFunc ENDP
+
+END main
