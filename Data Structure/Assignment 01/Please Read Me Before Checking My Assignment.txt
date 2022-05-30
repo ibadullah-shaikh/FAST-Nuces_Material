@@ -1,0 +1,14 @@
+
+-> For every question's input from file, we have to change the file name accordingly in two of the functions 
+   in each question, output file can be created automatically.
+
+
+-> Secondly, .txt file and .cpp file should be in the same folder for the perfect execution.
+
+
+-> Q1 is incomplete because I was unable to do it, I tried my best but unfortunately I didn't do complete it, 
+   I'll learn that how it will be implemented. Just the logic of searching the multiple words is incomplete,
+   other than that it's complete as well.
+
+
+-> Q2 and Q3 are complete we just have to change the file name to see different outputs of different test cases.
